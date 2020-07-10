@@ -27,7 +27,14 @@ font pango:monospace 8
 
 #client.background #2B2C2B
 #default_border pixel
-for_window [class="\w*"] border pixel 1  
+#seting gaps
+for_window [class="^.*"] border pixel 2
+gaps inner $inner_gaps
+gaps outer $outer_gaps
+set $inner_gaps 10
+set $outer_gaps 10
+
+#for_window [class="\w*"] border pixel 1  
 # This font is widely installed, provides lots of unicode glyphs, right-to-left
 # text rendering and scalability on retina/hidpi displays (thanks to pango).
 #font pango:DejaVu Sans Mono 8
@@ -165,17 +172,22 @@ mode "resize" {
 bindsym $mod+r mode "resize"
 
 # Terminal Root changes
+
 exec_always --no-startup-id $HOME/.config/polybar/launch.sh &
 exec $HOME/.fehbg
 exec_always --no-startup-id /usr/lib/policykit-1-gnome/polkit-gnome-authentication-agent-1 &
+#exec_always --no-startup-id  nm-applet
 # Sreen brightness controls
-#bindsym XF86MonBrightnessUp exec xbacklight -inc 20 # increase screen brightness
-#bindsym XF86MonBrightnessDown exec xbacklight -dec 20 # decrease screen brightness
+#bindsym XF86MonBrightnessUp exec backlight-acpi -inc 20 # increase screen brightness
+#bindsym XF86MonBrightnessDown exec backlight-acpi -dec 20 # decrease screen brightness
+#bindsym XF86MonBrightnessDown	exec --no-startup-id xbacklight -dec 15
+#bindsym XF86MonBrightnessUp	exec --no-startup-id xbacklight -inc 15
+bindsym  $mod+shift+o	exec  xbacklight -dec 15
+bindsym  $mod+shift+p	exec  xbacklight -inc 15
 # Pulse Audio controls
 bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume 0 +5% #increase sound volume
 bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume 0 -5% #decrease sound volume
 bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute 0 toggle # mute sound
 # Touchpad controls
 bindsym XF86TouchpadToggle exec /some/path/toggletouchpad.sh # toggle touchpad
-
 
